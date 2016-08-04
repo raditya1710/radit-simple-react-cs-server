@@ -4,12 +4,13 @@
 // =============================================================================
 
 // call the packages we need
-var express     = require('express');        // call express
-var app         = express();                 // define our app using express
-var bodyParser  = require('body-parser');
-var mysql       = require('mysql');
-var path        = require('path');
-var config_server = require('./config_server');
+import Express from 'express';        // call express
+import bodyParser from 'body-parser';
+import mysql from 'mysql';
+import path from 'path';
+import { CONFIG_MYSQL } from './config_server';
+
+const app = new Express();                 // define our app using express
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -22,16 +23,14 @@ app.use(function(req, res, next){
   next();
 });
 
-var port = process.env.PORT || 8080;        // set our port
+const port = process.env.PORT || 8080;        // set our port
 
 /* Setting Databases */
-var connection = mysql.createConnection(
-  config_server.CONFIG_MYSQL
-);
+const connection = mysql.createConnection(CONFIG_MYSQL);
 
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
+const router = Express.Router();              // get an instance of the express Router
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
